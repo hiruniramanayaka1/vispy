@@ -1,3 +1,11 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 4 optimizations:
+# - [MEDIUM] 3 jobs clone the repo — consider artifact sharing
+# - [LOW] Explicitly set fail-fast for large matrix job "build_0" (8 combinations)
+# - [LOW] Use shallow clone in "website" job
+# - [LOW] Use shallow clone in "build_0" job
+# Estimated savings: ~3 min/run
+#
 name: CI
 # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#concurrency
 # https://docs.github.com/en/developers/webhooks-and-events/events/github-event-types#pullrequestevent
@@ -79,7 +87,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
       with:
-        fetch-depth: 0
+        fetch-depth: 1
     - name: Cache VisPy Demo and Test Data
       uses: actions/cache@v6
       env:
@@ -186,7 +194,7 @@ jobs:
     steps:
     - uses: actions/checkout@v6
       with:
-        fetch-depth: 0
+        fetch-depth: 1
     - name: Cache VisPy Demo and Test Data
       uses: actions/cache@v6
       env:
